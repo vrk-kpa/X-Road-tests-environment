@@ -83,8 +83,18 @@ sudo chmod u+x install_pre_setup.sh
 
 Accept LXD init with all default values
 
+#### 6. Change lxc folder owner
 
-#### 6. Install LXD Containers and harmonized setup tools
+```
+cd /home/jenkins/.config
+sudo chown -R jenkins:jenkins lxc
+```
+
+#### 7. Restart linux
+
+Restart linux for some changes to take effect
+
+#### 8. Install LXD Containers and harmonized setup tools
 
 * Ansible playbook install tools:
 	* SOAP mockserver
@@ -106,7 +116,7 @@ Accept LXD init with all default values
     ```
     In case of failure retry.
 
-#### 7. Add ssh key to allow ssh.
+#### 9. Add ssh key to allow ssh.
 ```
 # When asked give yes and password which is secret
 ssh-copy-id -i .ssh/id_rsa.pub user@xroad-lxd-cs.lxd
@@ -117,17 +127,6 @@ ssh-copy-id -i .ssh/id_rsa.pub user@xroad-lxd-ss1.lxd
 # When asked give yes and password which is secret
 ssh-copy-id -i .ssh/id_rsa.pub user@xroad-lxd-ss2.lxd
 ```
-
-#### 8. Change lxc folder owner
-
-```
-cd /home/jenkins/.config
-sudo chown -R jenkins:jenkins lxc
-```
-
-#### 9. Restart linux
-
-Restart linux for some changes to take effect
 
 #### 10. LXD container configuration uploads
 
