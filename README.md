@@ -151,7 +151,7 @@ lxc exec xroad-lxd-ss2 ./softreset.sh
 
 ## Using lxd jenkins pull and push
 
-LXD jenkins configuration jobs are maintained with ansible playbook scripts and stored in [LXD jenkins config](https://github.com/vrk-kpa/lxd-jenkins-config) repository.
+LXD jenkins configuration jobs are maintained with ansible playbook scripts
 
 * Reload jenkins config from SCM git:
     * Option 1 Update all jenkins jobs ( updating and new jobs )

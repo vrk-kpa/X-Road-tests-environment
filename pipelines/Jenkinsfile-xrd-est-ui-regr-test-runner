@@ -3,9 +3,9 @@ node {
        cleanWs()
        def test_branch = "develop"
        def test_repository_subfolder = "estasa"
-       def test_repository = "https://github.com/vrk-kpa/X-Road-environment.git"
+       def test_repository = "https://github.com/vrk-kpa/X-Road-tests.git"
        def test_repository_subfolder_setup = ""
-       def test_repository_setup = "git@github.com:vrk-kpa/X-Road-tests-setup.git"
+       def test_repository_setup = "git@github.com:vrk-kpa/X-Road-tests-environment.git"
        checkout([$class: 'GitSCM', branches: [[name: "${test_branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${test_repository_subfolder_setup}"]], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[url: "${test_repository_setup}"]]])
        checkout([$class: 'GitSCM', branches: [[name: "${test_branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${test_repository_subfolder}"]], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[url: "${test_repository}"]]])
            }

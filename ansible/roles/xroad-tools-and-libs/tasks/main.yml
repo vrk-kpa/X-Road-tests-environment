@@ -166,19 +166,19 @@
     src: "{{item}}"
     dest: /var/lib/jenkins/plugins/
   with_fileglob:
-    - /home/jenkins/github/X-Road-tests-setup/plugins/python.hpi
+    - /home/jenkins/github/X-Road-tests-environment/plugins/python.hpi
 
 - name: Copy initial jenkins setup
   copy:
     src: "{{item}}"
     dest: /var/lib/jenkins/
   with_fileglob:
-    - /home/jenkins/github/lxd-jenkins-config/*
+    - /home/jenkins/github/X-Road-tests-environment/jenkins_config/*
 
 - name: Copy initial jenkins jobs
   become: true
   become_user: jenkins
-  shell: cp -r /home/jenkins/github/lxd-jenkins-config/jobs/ /var/lib/jenkins/
+  shell: cp -r /home/jenkins/github/X-Road-tests-environment/jenkins_config/jobs/ /var/lib/jenkins/
 
 - name: Add Jenkins support to javascript HTML reports
   become: true
