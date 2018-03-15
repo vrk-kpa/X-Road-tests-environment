@@ -86,6 +86,7 @@ Accept LXD init with all default values
 #### 6. Change lxc folder owner
 
 ```
+lxc list
 cd /home/jenkins/.config
 sudo chown -R jenkins:jenkins lxc
 ```
