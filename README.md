@@ -157,12 +157,12 @@ LXD jenkins configuration jobs are maintained with ansible playbook scripts and 
 * Reload jenkins config from SCM git:
     * Option 1 Update all jenkins jobs ( updating and new jobs )
     ```
-    cd /home/jenkins/github/X-Road-tests-setup/ansible
+    cd /home/jenkins/github/X-Road-tests-environment/ansible
     sudo ansible-playbook -i hosts/xroad_hosts.txt xroad_jenkins_pull.yml
     ```
 
     * Option 2 Fetch all jenkins configs, plugins and jobs (removing old jobs)
     ```
-    cd /home/jenkins/github/X-Road-tests-setup/ansible
+    cd /home/jenkins/github/X-Road-tests-environment/ansible
     sudo ansible-playbook -i hosts/xroad_hosts.txt xroad_jenkins_pull.yml -e "clean_install=true"
     ```
