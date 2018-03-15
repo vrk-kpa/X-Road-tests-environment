@@ -47,7 +47,7 @@ TEST_REPOSITORY_SUBFOLDER=tests
 TEST_PROJECT_DIR=$TEST_REPOSITORY_SUBFOLDER/common/xrd-ui-tests-qautomate
 QUIET_PERIOD=10
 AGENT=master
-PIPELINE_BRANCH=develop</propertiesContent>
+PIPELINE_BRANCH=master</propertiesContent>
         <secureGroovyScript plugin="script-security@1.41">
           <script></script>
           <sandbox>false</sandbox>

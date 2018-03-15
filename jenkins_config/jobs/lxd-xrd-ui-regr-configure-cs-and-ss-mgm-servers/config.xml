@@ -200,7 +200,7 @@ Default_value lxd: empty</description>
 TEST_DATA=xroad_install_ui_configuration.xml
 TEMP_WS=$WORKSPACE
 TEST_PROJECT_DIR=tests/common/xrd-ui-tests-qautomate
-PIPELINE_BRANCH=develop
+PIPELINE_BRANCH=master
 
 
 

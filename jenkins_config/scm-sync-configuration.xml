@@ -2,7 +2,7 @@
 <hudson.plugins.scm__sync__configuration.ScmSyncConfigurationPlugin version="1">
   <scm class="hudson.plugins.scm_sync_configuration.scms.ScmSyncGitSCM"/>
   <scmRepositoryUrl>scm:git:git@github.com:vrk-kpa/X-Road-tests-environment.git</scmRepositoryUrl>
-  <scmGitBranch>develop</scmGitBranch>
+  <scmGitBranch>master</scmGitBranch>
   <noUserCommitMessage>false</noUserCommitMessage>
   <displayStatus>true</displayStatus>
   <commitMessagePattern>[message]</commitMessagePattern>
