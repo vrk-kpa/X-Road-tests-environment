@@ -68,8 +68,8 @@ sudo chmod 400 /home/jenkins/.ssh/id_rsa
 * Clone repositories under Github folder
 ```
 cd /home/jenkins/github
-git clone git@github.com:vrk-kpa/X-Road.git
-git clone git@github.com:vrk-kpa/X-Road-tests-environment.git
+git clone https://github.com/vrk-kpa/X-Road
+git clone https://github.com/vrk-kpa/X-Road-tests-environment
 ```
 
 #### 5. Install pre-setup configuration
