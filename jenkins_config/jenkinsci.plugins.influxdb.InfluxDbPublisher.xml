@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jenkinsci.plugins.influxdb.DescriptorImpl plugin="influxdb@1.10.3">
+  <targets>
+    <jenkinsci.plugins.influxdb.models.Target>
+      <description>junitinflux2</description>
+      <url>http://localhost:8086</url>
+      <username>admin</username>
+      <password>admin</password>
+      <database>jenkins_db</database>
+      <retentionPolicy>autogen</retentionPolicy>
+      <exposeExceptions>true</exposeExceptions>
+    </jenkinsci.plugins.influxdb.models.Target>
+    <jenkinsci.plugins.influxdb.models.Target>
+      <description>perf_data</description>
+      <url>http://localhost:8086</url>
+      <username>admin</username>
+      <password>admin</password>
+      <database>jenkins_perf_db</database>
+      <retentionPolicy>autogen</retentionPolicy>
+      <exposeExceptions>true</exposeExceptions>
+    </jenkinsci.plugins.influxdb.models.Target>
+  </targets>
+</jenkinsci.plugins.influxdb.DescriptorImpl>

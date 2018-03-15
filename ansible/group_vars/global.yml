@@ -1,0 +1,30 @@
+# X-Road UI (CS and SS) user and passwords
+xroad_ui_user: "xrd"
+# Xroad default password: secret
+xroad_ui_user_password: "$6$Esp64ze9owZGsfI5$s6Wx5diVppHi8AoAUKU6LACNHB7dky3Gc3g4Ewa3e/x8lCjgVswA2EcUVpF2l9IadOHooFFjtbBMNWZAO2Xg4/"
+
+# Default SSH username and password are user:secret
+ssh_username: "user"
+ssh_password: "$6$jDACdh9bz0$4gxDiQr2nYvQy/ASfbKoO38lxx0MnTGjSovgIxi.S1cGfpquyDeAZ3oJtCUzmR8i8YX2pslIQpfNYJDJEITC31"
+
+# SoapUI installation
+soapui_download_path: https://s3.amazonaws.com/downloads.eviware/soapuios/5.4.0/SoapUI-5.4.0-linux-bin.tar.gz
+soapui_install_path: /home/jenkins/SoapUI-5.4.0/
+soapui_archive_filename: SoapUI-x64.tar.gz
+
+# PyCharm installation
+pycharm_download_path: https://download.jetbrains.com/python/pycharm-community-2017.1.4.tar.gz
+pycharm_archive_filename: pycharm.tar.gz
+
+# Used for xroad-python-tests
+xroad_python_tests_git_path: https://github.com/vrk-kpa/X-Road-tests.git
+xroad_python_tests_git_branch: develop
+xroad_python_tests_local_path: /home/jenkins/
+xroad_python_tests_root: X-Road-tests
+xroad_python_tests_path: X-Road-tests/common/xrd-ui-tests-python/
+xroad_mock_service_path: X-Road-tests/common/xrd-ui-tests-python/mock/service-soapui/
+xroad_mock_wsdl_path: X-Road-tests/common/xrd-ui-tests-python/mock/service_wsdl/
+xroad_mock_run_command: bin/mockservicerunner.sh -s soapui-settings.xml testservice-soapui-project.xml
+
+# Default password for CA user "ca" is "ca"
+ca_password: "$6$vsWg2kN2st88yVmk$DQlrkMZ5onUzJQcIBohO8.0GXt.RFapGxLg/Ty68xMf3jewclBESZmSiE2jBCwrkIdlXCB3whROXNtsRAzlIp/"

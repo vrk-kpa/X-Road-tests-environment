@@ -1,0 +1,13 @@
+#!/bin/sh
+
+* * * * * xroad (sleep 10 ; curl http://127.0.0.1:8084/managementservice/gen_conf  2>&1 >/dev/null;)
+* * * * * xroad (sleep 20 ; curl http://127.0.0.1:8084/managementservice/gen_conf  2>&1 >/dev/null;)
+* * * * * xroad (sleep 30 ; curl http://127.0.0.1:8084/managementservice/gen_conf  2>&1 >/dev/null;)
+* * * * * xroad (sleep 40 ; curl http://127.0.0.1:8084/managementservice/gen_conf  2>&1 >/dev/null;)
+* * * * * xroad (sleep 50 ; curl http://127.0.0.1:8084/managementservice/gen_conf  2>&1 >/dev/null;)
+* * * * * xroad (sleep 5 ; curl http://127.0.0.1:8084/managementservice/gen_conf  2>&1 >/dev/null;)
+* * * * * xroad (sleep 15 ; curl http://127.0.0.1:8084/managementservice/gen_conf  2>&1 >/dev/null;)
+* * * * * xroad (sleep 25 ; curl http://127.0.0.1:8084/managementservice/gen_conf  2>&1 >/dev/null;)
+* * * * * xroad (sleep 35 ; curl http://127.0.0.1:8084/managementservice/gen_conf  2>&1 >/dev/null;)
+* * * * * xroad (sleep 45 ; curl http://127.0.0.1:8084/managementservice/gen_conf  2>&1 >/dev/null;)
+* * * * * xroad (sleep 55 ; curl http://127.0.0.1:8084/managementservice/gen_conf  2>&1 >/dev/null;)

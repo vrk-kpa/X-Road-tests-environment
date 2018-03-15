@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.17">
+  <actions>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@1.2.7"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@1.2.7">
+      <jobProperties/>
+      <triggers/>
+      <parameters/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
+  </actions>
+  <description>softreset from repository</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>SOFTRESET</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>ALL</string>
+              <string>CS</string>
+              <string>SS0</string>
+              <string>SS1</string>
+              <string>SS2</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.7.3">
+      <useBuildBlocker>false</useBuildBlocker>
+      <blockLevel>GLOBAL</blockLevel>
+      <scanQueueFor>DISABLED</scanQueueFor>
+      <blockingJobs></blockingJobs>
+    </hudson.plugins.buildblocker.BuildBlockerProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.45">
+    <script>pipeline {  
+    agent any
+
+
+    stages {
+        stage (&quot;Softreset&quot;) {
+            steps {
+                script {
+                    if(&quot;${params.SOFTRESET}&quot; == &quot;ALL&quot;) {
+                        sh &quot;&quot;&quot; 
+lxc list
+lxc exec xroad-lxd-cs -- ./softreset.sh
+lxc exec xroad-lxd-ss0 -- ./softreset.sh
+lxc exec xroad-lxd-ss1 -- ./softreset.sh
+lxc exec xroad-lxd-ss2 -- ./softreset.sh
+ &quot;&quot;&quot;
+                    }
+                }
+            }
+        }
+    }
+}</script>
+    <sandbox>false</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

@@ -1,0 +1,47 @@
+my_jenkins_plugins_latest:
+  ant:
+    with_dependencies: yes
+  docker-commons:
+    with_dependencies: yes
+  credentials:
+    with_dependencies: yes
+  thinBackup:
+    with_dependencies: yes
+  ssh-slaves:
+    with_dependencies: yes
+  robot:
+    with_dependencies: yes
+  cobertura:
+    with_dependencies: yes
+  maven-plugin:
+    with_dependencies: yes
+  matrix-auth:
+    with_dependencies: yes
+  plain-credentials:
+    with_dependencies: yes
+  ldap:
+    with_dependencies: yes
+  external-monitor-job:
+    with_dependencies: yes
+  gradle:
+    with_dependencies: yes
+  envinject:
+    with_dependencies: yes
+  build-blocker-plugin:
+    with_dependencies: yes
+  git-client:
+    with_dependencies: yes
+  github:
+    with_dependencies: yes
+  htmlpublisher:
+    with_dependencies: yes
+  influxdb:
+    with_dependencies: yes
+  performance:
+    with_dependencies: yes
+  persistent-parameter:
+    with_dependencies: yes
+  ws-cleanup:
+    with_dependencies: yes
+  workflow-aggregator:
+    with_dependencies: y

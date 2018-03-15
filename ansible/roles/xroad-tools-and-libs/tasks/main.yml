@@ -1,0 +1,323 @@
+- name: Install LXD container environment
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - lxd
+
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+
+
+- name: Install Apt ubuntu libraries
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - aptitude
+    - curl
+    - python-pip
+    - vlc
+    - graphviz-dev
+    - graphviz
+    - python-pygraphviz
+    - python-pil
+    - python-lxml
+    - python-tk
+    - nano
+    - software-properties-common
+    - tomcat8
+    - unzip
+    - build-essential
+    - libssl-dev
+    - libffi-dev
+    - python-dev
+    - apt-transport-https
+  retries: 2
+  delay: 2
+
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Install python 2 libraries
+  pip:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - selenium==3.5.0
+    - setuptools
+    - openpyxl
+    - xlrd
+    - jira
+    - requests
+    - simplejson
+    - python-xlib
+    - pyautogui
+    - paramiko
+    - nose2
+    - cffi
+    - cryptography
+
+- name: Copy install scripts to temp directory
+  become: true
+  copy:
+    src: files/install_scripts
+    dest: /home/jenkins/temp
+
+- name: Copy example service to temp directory
+  become: true
+  copy:
+    src: files/example_service
+    dest: /home/jenkins/temp
+
+- name: Make my directory tree readable
+  become: true
+  file:
+    path: /home/jenkins/temp/install_scripts/
+    mode: 0755
+    recurse: yes
+
+- name: Copy example service under Tomcat 8
+  copy:
+    src: "{{item}}"
+    dest: /var/lib/tomcat8/webapps/
+  with_items:
+    - /home/jenkins/temp/example_service/example-adapter-0.0.4-SNAPSHOT.war
+
+- name: Setup LXD bridge and tomcat8
+  command: ./setup_lxd_bridge_and_tomcat.sh
+  args:
+    chdir: /home/jenkins/temp/install_scripts/
+
+- name: Add jenkins GPG key
+  apt_key:
+    url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
+
+- name: Add Jenkins APT repository
+  apt_repository:
+    filename: jenkins
+    repo: deb https://pkg.jenkins.io/debian binary/
+
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Install specific jenkins version
+  apt:
+    name: "jenkins={{jenkins_version}}"
+    force: yes
+
+- name: Sleep for 25 seconds and Wait jenkins starting
+  wait_for: timeout=25
+
+- name: Get and read Jenkins initial admin password to variable
+  shell: cat /var/lib/jenkins/secrets/initialAdminPassword
+  register: jenkins_password
+
+- debug:
+    msg: "{{ jenkins_password.stdout }}"
+
+- name: Download Jenkins CLI client jar
+  shell: curl -O http://localhost:8080/jnlpJars/jenkins-cli.jar
+
+- name: Bypass jenkins Setupwizard - jenkins.install.InstallUtil.lastExecVersion
+  copy:
+    src={{ jenkins_home }}/jenkins.install.UpgradeWizard.state
+    dest={{ jenkins_home }}/jenkins.install.InstallUtil.lastExecVersion
+    owner={{ jenkins_user }}
+    group={{ jenkins_user }}
+    remote_src=True
+
+- name: Disable jenkins security
+  shell: sudo ex +g/useSecurity/d +g/authorizationStrategy/d -scwq /var/lib/jenkins/config.xml
+
+- name: Sudo restart jenkins
+  become: true
+  service:
+    name: jenkins
+    state: restarted
+
+- name: Sleep for 25 seconds and Wait jenkins starting
+  wait_for: timeout=25
+
+- name: Install plugins with latest version
+  jenkins_plugin:
+    name: "{{ item.key }}"
+    with_dependencies: yes
+    timeout: 60
+  with_dict: "{{ my_jenkins_plugins_latest }}"
+  retries: 3
+  delay: 10
+
+
+- name: Copy jenkins python plugin 1.4 version
+  become: true
+  become_user: jenkins
+  copy:
+    src: "{{item}}"
+    dest: /var/lib/jenkins/plugins/
+  with_fileglob:
+    - /home/jenkins/github/X-Road-tests-setup/plugins/python.hpi
+
+- name: Copy initial jenkins setup
+  copy:
+    src: "{{item}}"
+    dest: /var/lib/jenkins/
+  with_fileglob:
+    - /home/jenkins/github/lxd-jenkins-config/*
+
+- name: Copy initial jenkins jobs
+  become: true
+  become_user: jenkins
+  shell: cp -r /home/jenkins/github/lxd-jenkins-config/jobs/ /var/lib/jenkins/
+
+- name: Add Jenkins support to javascript HTML reports
+  become: true
+  shell: sudo sed -i 's/$JAVA $JAVA_ARGS/$JAVA -Dhudson.model.DirectoryBrowserSupport.CSP= $JAVA_ARGS/g' /etc/init.d/jenkins
+
+- name: Sudo restart jenkins
+  become: true
+  service:
+    name: jenkins
+    state: restarted
+
+- name: Install Firefox latest as temporary
+  become: true
+  apt:
+    name: firefox
+    state: present
+
+- name: Download specific Firefox version
+  become: true
+  shell: wget --no-verbose -O /tmp/firefox.tar.bz2 https://download-installer.cdn.mozilla.net/pub/firefox/releases/{{ firefox_version }}/linux-x86_64/en-US/firefox-{{ firefox_version }}.tar.bz2
+  retries: 2
+  delay: 2
+  register: result
+  until: result.rc == 0
+
+- name: Uninstall old firefox
+  apt: >
+    pkg={{ item }}
+    state=absent
+    purge=yes
+    force=yes
+  with_items:
+    - firefox
+  sudo: yes
+
+- name: Remove old Firefox earlier version
+  shell: sudo rm -rf /opt/firefox /opt/firefox-{{ firefox_version }}
+
+- name: Extract new Firefox to opt folder
+  shell: sudo tar -C /opt -xjf /tmp/firefox.tar.bz2
+
+- name: Remove tar file
+  shell: sudo rm /tmp/firefox.tar.bz2
+
+- name: Move new Firefox to specific version folder
+  shell: sudo mv /opt/firefox /opt/firefox-{{ firefox_version }}
+
+- name: Make symbolic link ot new Firefox
+  shell: sudo ln -fs /opt/firefox-{{ firefox_version }}/firefox /usr/bin/firefox
+
+- name: Copy jenkins scm plugin hpi file plugin folder
+  become: true
+  copy:
+    src=files/scm-plugin
+    dest={{jenkins_home}}/plugins
+
+- name: Reload jenkins
+  shell: curl http://localhost:8080/reload
+
+- name: Remove old temp directory
+  become: yes
+  become_user: jenkins
+  shell: rm -rf /home/jenkins/qautotemp/
+
+- name: Make new temp directory
+  become: yes
+  become_user: jenkins
+  shell: mkdir -p /home/jenkins/qautotemp/
+
+- name: Download latest QAutomate
+  become: yes
+  become_user: jenkins
+  get_url:
+    url: "{{ qautomate_download_link }}"
+    dest: /home/jenkins/qautotemp/
+    mode: 0755
+    timeout: 18
+
+- name: Unzip QAutomate to temp
+  become: yes
+  become_user: jenkins
+  unarchive:
+    src: "/home/jenkins/qautotemp/{{ qautomate_zip_name }}"
+    dest: /home/jenkins/qautotemp/
+
+- name: Install QAutomate
+  become: yes
+  become_user: jenkins
+  shell: ./install_full_environment_ubuntu1604.sh
+  args:
+    chdir: /home/jenkins/qautotemp/QAutomate-1.8.0
+
+- name: Set QAutomate environment paths
+  become: yes
+  become_user: jenkins
+  shell: export PYTHONPATH=/home/jenkins/.local/lib/python2.7/site-packages/qautomate/
+
+- name: Set QAutomate environment paths
+  become: yes
+  become_user: jenkins
+  shell: export PATH=$PATH:/home/jenkins/.local/lib/python2.7/site-packages/qautomate/webframework/resources/
+
+- name: Create QAutomate license file
+  copy:
+    content: "xroad@xroad.email"
+    dest: /home/jenkins/qautomate/license.info
+
+- name: Create webdrivers directory if not exists
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: jenkins
+    group: jenkins
+    mode: 0775
+  with_items:
+    - "{{ geckodriver_path }}"
+
+- name: Download Geckodriver specific version
+  become: yes
+  become_user: jenkins
+  get_url:
+    url: "{{ geckodriver_download_link }}"
+    dest: "{{ geckodriver_path }}"
+    mode: 0755
+    timeout: 18
+
+- name: Extract Geckodriver to webdrivers folder
+  become: yes
+  become_user: jenkins
+  unarchive:
+    src: "{{ geckodriver_path }}geckodriver-v0.19.0-linux64.tar.gz"
+    dest: "{{ geckodriver_path }}"
+
+- name: Disable screen saver
+  become: yes
+  become_user: jenkins
+  shell: gsettings set org.gnome.desktop.session idle-delay 0
+
+- name: Disable screen lock
+  become: yes
+  become_user: jenkins
+  shell: gsettings set org.gnome.desktop.screensaver lock-enabled false

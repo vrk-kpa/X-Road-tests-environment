@@ -1,0 +1,35 @@
+- name: show OS version
+  debug:
+    msg: "OS = {{ ansible_os_family }} "
+
+- name: check that OS = Redhat
+  fail:
+    msg: "This playbook only supports Ubuntu"
+  when: ansible_os_family != "Debian"
+
+- user:
+    name: "ca"
+    password: "{{ ca_password }}"
+    update_password: always
+
+- name: Create 'wheel' group
+  group:
+    name: wheel
+    state: present
+
+- name: Allow 'wheel' group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: visudo -cf %s
+
+- name: Add sudoers users to wheel and adm groups
+  user:
+    name: "{{ item }}"
+    groups: wheel,adm
+    append: yes
+  with_items:
+    - user
+    - ca

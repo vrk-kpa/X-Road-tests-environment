@@ -1,0 +1,3 @@
+---
+# Default password for CA user "ca" is "ca"
+ca_password: "$6$vsWg2kN2st88yVmk$DQlrkMZ5onUzJQcIBohO8.0GXt.RFapGxLg/Ty68xMf3jewclBESZmSiE2jBCwrkIdlXCB3whROXNtsRAzlIp/"

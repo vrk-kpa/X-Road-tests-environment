@@ -1,0 +1,7 @@
+---
+# This playbook update jenkins jobs from git
+- hosts: lxd-servers
+  roles:
+    - xroad-jenkins-pull
+  tags: tools
+

@@ -1,0 +1,56 @@
+---
+# This playbook initializes X-Road harmonized automation environment and tools
+
+# LXD host should be initialized and configured to run X-Road Python tests (xrd-ui-python-tests and xrd-ui-tests-qautomate)
+- hosts: lxd-servers
+  roles:
+    - role: init-lxd
+    - role: xroad-python-tests
+  tags: python-tests
+
+- hosts: lxd-servers
+  roles:
+    - xroad-tools-and-libs
+  tags: tools
+
+
+# All LXD containers should have Python 2 installed
+- hosts: web-servers
+  become: yes
+  become_user: root
+  gather_facts: no
+  pre_tasks:
+    - name: 'Install python2'
+      raw: apt-get -y install python
+
+# Install and configure SSH server for all servers
+- hosts: ss-servers, cs-servers, ca-servers
+  become: yes
+  become_user: root
+  gather_facts: yes
+  pre_tasks:
+    - raw: apt-get -y install python
+  roles:
+    - xroad-ssh-server
+
+# Configure CA
+- hosts: ca-servers
+  become: yes
+  become_user: root
+  gather_facts: yes
+  pre_tasks:
+    - raw: apt-get -y install python
+  roles:
+    - xroad-ca-server
+
+# Initialize web and mock server
+- hosts: web-servers
+  become: yes
+  become_user: root
+  gather_facts: yes
+  pre_tasks:
+    - raw: apt-get -y install python
+  roles:
+    - xroad-webserver
+    - xroad-mockserver
+    - xroad-ssh-server

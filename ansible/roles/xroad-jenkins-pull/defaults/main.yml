@@ -1,0 +1,4 @@
+jenkins_user: "jenkins"
+jenkins_home: "/var/lib/jenkins"
+lxd_jenkins_git_repository: "git@github.com:vrk-kpa/X-Road-tests-environment.git"
+clean_install: "false"

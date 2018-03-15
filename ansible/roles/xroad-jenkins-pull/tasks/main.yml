@@ -1,0 +1,51 @@
+- name: Install plugins with latest version
+  jenkins_plugin:
+    name: "{{ item.key }}"
+    with_dependencies: yes
+    timeout: 70
+  with_dict: "{{ my_jenkins_plugins_latest }}"
+  when: (clean_install == 'true')
+
+- name: Copy jenkins python plugin 1.4 version
+  become: true
+  become_user: jenkins
+  copy:
+    src: "{{item}}"
+    dest: /var/lib/jenkins/plugins/
+  with_fileglob:
+    - /home/jenkins/github/X-Road-tests-environment/plugins/python.hpi
+  when: (clean_install == 'true')
+
+- name: Empty old jenkins jobs if flag set
+  become: true
+  become_user: jenkins
+  shell: sudo rm -rf /var/lib/jenkins/jobs/
+  when: (clean_install == 'true')
+
+- name: Empty old jenkins config dir if flag set
+  become: true
+  become_user: jenkins
+  shell: sudo rm -rf /var/lib/jenkins/*.xml
+  when: (clean_install == 'true')
+
+- name: Copy jenkins jenkins configs from scm
+  become: true
+  become_user: jenkins
+  copy:
+    src: "{{item}}"
+    dest: /var/lib/jenkins/
+  with_fileglob:
+    - /home/jenkins/github/X-Road-tests-environment/jenkins_config/*.xml
+    - /home/jenkins/github/X-Road-tests-environment/jenkins_config/users/admin/*.xml
+  when: (clean_install == 'true')
+
+- name: Copy jenkins jobs from scm
+  become: true
+  become_user: jenkins
+  shell: cp -r /home/jenkins/github/X-Road-tests-environment/jenkins_config/jobs/ /var/lib/jenkins/
+
+- name: Sudo restart jenkins
+  become: true
+  service:
+    name: jenkins
+    state: restarted

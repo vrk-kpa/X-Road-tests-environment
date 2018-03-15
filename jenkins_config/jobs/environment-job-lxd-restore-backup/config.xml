@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.7.3">
+      <useBuildBlocker>false</useBuildBlocker>
+      <blockLevel>GLOBAL</blockLevel>
+      <scanQueueFor>DISABLED</scanQueueFor>
+      <blockingJobs></blockingJobs>
+    </hudson.plugins.buildblocker.BuildBlockerProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <com.gem.persistentparameter.PersistentStringParameterDefinition plugin="persistent-parameter@1.1">
+          <name>SERVER_NAME</name>
+          <description>e.g xroad-lxd-cs</description>
+          <defaultValue>xroad-lxd-cs</defaultValue>
+          <successfulOnly>false</successfulOnly>
+        </com.gem.persistentparameter.PersistentStringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>SERVERS</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>all</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>BACKUP_NAME</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>configured</string>
+              <string>initial</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>$SHARED_LIB_REPOSITORY</url>
+        <credentialsId>b7a9b945-4430-4598-8d5d-ad6ed0941c5f</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/develop</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>lxc exec xroad-lxd-cs -- ./restore_backup_cs.sh $BACKUP_NAME
+lxc exec xroad-lxd-ss0 -- ./restore_backup_ss.sh $BACKUP_NAME
+lxc exec xroad-lxd-ss1 -- ./restore_backup_ss.sh $BACKUP_NAME
+lxc exec xroad-lxd-ss2 -- ./restore_backup_ss.sh $BACKUP_NAME
+
+lxc file push $WORKSPACE/server-config/cs/xroad-center xroad-lxd-cs/etc/cron.d/xroad-center
+lxc exec xroad-lxd-cs -- sudo chown root:root /etc/cron.d/xroad-center
+lxc exec xroad-lxd-cs -- sudo chmod 755 /etc/cron.d/xroad-center
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

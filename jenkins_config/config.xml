@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors/>
+  <version>2.84</version>
+  <numExecutors>3</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
+  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
+    <disableSignup>true</disableSignup>
+    <enableCaptcha>false</enableCaptcha>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULLNAME}</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <markupFormatter class="hudson.markup.EscapedMarkupFormatter"/>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>all</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>ui-regression-tests-lxd-environment</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>lxd-xrd-ui-regr-configure-cs-and-ss-mgm-servers</string>
+        <string>lxd-xrd-ui-regr-configure-ss-server-with-new-member-add-to-existing-cs</string>
+        <string>lxd-xrd-ui-regr-configure-ss-server-with-new-member2-add-to-existing-cs</string>
+        <string>lxd-xrd-ui-regr-deletion-of-objects</string>
+        <string>lxd-xrd-ui-regr-global-configuration</string>
+        <string>lxd-xrd-ui-regr-keys-and-certs</string>
+        <string>lxd-xrd-ui-regr-pipeline</string>
+        <string>lxd-xrd-ui-regr-ss-server-management</string>
+        <string>softreset-xroad-lxd-cs</string>
+        <string>softreset-xroad-lxd-ss0</string>
+        <string>softreset-xroad-lxd-ss1</string>
+        <string>softreset-xroad-lxd-ss2</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>softresets</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>softreset-local-xroad-lxd-cs</string>
+        <string>softreset-local-xroad-lxd-ss0</string>
+        <string>softreset-local-xroad-lxd-ss1</string>
+        <string>softreset-local-xroad-lxd-ss2</string>
+        <string>softreset-xroad-lxd-cs</string>
+        <string>softreset-xroad-lxd-ss0</string>
+        <string>softreset-xroad-lxd-ss1</string>
+        <string>softreset-xroad-lxd-ss2</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>environment-jobs</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView[2]/jobNames/comparator"/>
+        <string>environment-job-lxd-make-backup</string>
+        <string>environment-job-lxd-restore-backup</string>
+        <string>environment-job-lxd-upload-server-confs</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+  </views>
+  <primaryView>all</primaryView>
+  <slaveAgentPort>-1</slaveAgentPort>
+  <label></label>
+  <nodeProperties/>
+  <globalNodeProperties>
+    <hudson.slaves.EnvironmentVariablesNodeProperty>
+      <envVars serialization="custom">
+        <unserializable-parents/>
+        <tree-map>
+          <default>
+            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+          </default>
+          <int>3</int>
+          <string>ENV_TYPE</string>
+          <string>lxd</string>
+          <string>LIBRARY_KEY</string>
+          <string>fff61d1b-4c09-43ca-b385-dbf4edec5d37</string>
+          <string>SHARED_LIB_REPOSITORY</string>
+          <string>git@github.com:vrk-kpa/X-Road-tests-environment.git</string>
+        </tree-map>
+      </envVars>
+    </hudson.slaves.EnvironmentVariablesNodeProperty>
+  </globalNodeProperties>
+</hudson>
