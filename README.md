@@ -80,7 +80,7 @@ sudo chmod u+x install_pre_setup.sh
 
 Accept LXD init with all default values
 
-#### 8. Install LXD Containers and harmonized setup tools
+#### 6. Install LXD Containers and harmonized setup tools
 
 * Ansible playbook install tools:
 	* SOAP mockserver
@@ -103,7 +103,7 @@ Accept LXD init with all default values
     In case of failure retry.
     
 
-#### 9. Add ssh key to allow ssh.
+#### 7. Add ssh key to allow ssh.
 ```
 # Copy or create ssh key
 # e.g https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
@@ -123,7 +123,14 @@ ssh-copy-id -i .ssh/id_rsa.pub user@xroad-lxd-ss1.lxd
 ssh-copy-id -i .ssh/id_rsa.pub user@xroad-lxd-ss2.lxd
 ```
 
-#### 10. LXD container configuration uploads
+#### 8. Change lxc folder owner	
+```		
+cd /home/jenkins/.config	
+sudo chown -R jenkins:jenkins lxc	
+```	
+Restart linux for changes to take effect
+
+#### 9. LXD container configuration uploads
 
 - Upload softreset and other configuration files to LXD containers by running jenkins job environment-job-upload-lxd-confs
 
