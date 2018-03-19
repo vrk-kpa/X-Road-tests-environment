@@ -60,9 +60,6 @@ sudo su jenkins
 sudo apt-get -y install git
 mkdir -p /home/jenkins/github
 mkdir -p /home/jenkins/.ssh
-# Copy or create ssh key
-# e.g https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
-sudo chmod 400 /home/jenkins/.ssh/id_rsa
 ```
 
 * Clone repositories under Github folder
@@ -83,19 +80,7 @@ sudo chmod u+x install_pre_setup.sh
 
 Accept LXD init with all default values
 
-#### 6. Change lxc folder owner
-
-```
-lxc list
-cd /home/jenkins/.config
-sudo chown -R jenkins:jenkins lxc
-```
-
-#### 7. Restart linux
-
-Restart linux for some changes to take effect
-
-#### 8. Install LXD Containers and harmonized setup tools
+#### 6. Install LXD Containers and harmonized setup tools
 
 * Ansible playbook install tools:
 	* SOAP mockserver
@@ -116,8 +101,17 @@ Restart linux for some changes to take effect
     sudo ansible-playbook -i hosts/xroad_hosts.txt xroad_automation.yml
     ```
     In case of failure retry.
+    
 
-#### 9. Add ssh key to allow ssh.
+#### 7. Add ssh key to allow ssh.
+```
+# Copy or create ssh key
+# e.g https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+ssh-add ~/.ssh/id_rsa
+sudo chmod 400 /home/jenkins/.ssh/id_rsa
+```
+Restart cmd
 ```
 # When asked give yes and password which is secret
 ssh-copy-id -i .ssh/id_rsa.pub user@xroad-lxd-cs.lxd
@@ -129,7 +123,14 @@ ssh-copy-id -i .ssh/id_rsa.pub user@xroad-lxd-ss1.lxd
 ssh-copy-id -i .ssh/id_rsa.pub user@xroad-lxd-ss2.lxd
 ```
 
-#### 10. LXD container configuration uploads
+#### 8. Change lxc folder owner	
+```		
+cd /home/jenkins/.config	
+sudo chown -R jenkins:jenkins lxc	
+```	
+Restart linux for changes to take effect
+
+#### 9. LXD container configuration uploads
 
 - Upload softreset and other configuration files to LXD containers by running jenkins job environment-job-upload-lxd-confs
 

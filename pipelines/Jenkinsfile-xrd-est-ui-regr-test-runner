@@ -2,11 +2,11 @@ node {
    stage("git checkout and setup") {
        cleanWs()
        def test_branch = "develop"
-       def test_environment_branch = "develop"
+       def test_environment_branch = "master"
        def test_repository_subfolder = "estasa"
-       def test_repository = "https://github.com/vrk-kpa/X-Road-tests.git"
+       def test_repository = "https://github.com/vrk-kpa/X-Road-tests"
        def test_repository_subfolder_setup = ""
-       def test_repository_setup = "git@github.com:vrk-kpa/X-Road-tests-environment.git"
+       def test_repository_setup = "https://github.com/vrk-kpa/X-Road-tests-environment"
        checkout([$class: 'GitSCM', branches: [[name: "${test_environment_branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${test_repository_subfolder_setup}"]], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[url: "${test_repository_setup}"]]])
        checkout([$class: 'GitSCM', branches: [[name: "${test_branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${test_repository_subfolder}"]], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[url: "${test_repository}"]]])
            }
