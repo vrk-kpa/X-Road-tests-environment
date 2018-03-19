@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<scriptApproval plugin="script-security@1.39">
+<scriptApproval plugin="script-security@1.42">
   <approvedScriptHashes>
     <string>011074ab99e47a534bfb5153146a9ce9859fc94a</string>
     <string>013742924675f771b0f262abc0b463708ef79ad1</string>
@@ -216,6 +216,7 @@
     <string>b3d1ad15dee88a19319707c87f4090477f7f2289</string>
     <string>b3fd0578e06280c8bf846ac20ec925d1f552530e</string>
     <string>b46cb87d53e22dd8e4c7b34f26c50b3bf556c31e</string>
+    <string>b4c8b3b7c73ea6d2c67eb9406d62700a7a4bbe3b</string>
     <string>b72d728ff3008ca3510fccdf6e820c1440063976</string>
     <string>b8468d0587902eef3453825c2d09367b3d59f676</string>
     <string>b96ba8323ee9f35622e3e6e9bb6ded52919c2254</string>
@@ -311,6 +312,7 @@
     <string>new hudson.slaves.EnvironmentVariablesNodeProperty hudson.slaves.EnvironmentVariablesNodeProperty$Entry[]</string>
     <string>staticMethod jenkins.model.Jenkins getInstance</string>
     <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getAt java.lang.Object java.lang.String</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods readLines java.lang.String</string>
   </approvedSignatures>
   <aclApprovedSignatures/>
   <approvedClasspathEntries/>
