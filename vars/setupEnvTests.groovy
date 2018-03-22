@@ -29,7 +29,7 @@ def call(env_name){
         env.SENSITIVE_DATA_DIR = "sensitive/ui-integration-tests/sensitive"
         env.SENSITIVE_REPOSITORY_SUBFOLDER = "sensitive"
         env.SENSITIVE_TESTDATA_DIR = "../sensitive"
-        env.SENSITIVE_BRANCH = "*/develop"
+        env.SENSITIVE_BRANCH = "*/master"
         env.TEST_PROJECT_DIR = "tests/common/xrd-ui-tests-qautomate"
         env.AGENT = "ui-test-node"
     }
@@ -44,7 +44,7 @@ def call(env_name){
         env.SENSITIVE_DATA_DIR = "sensitive/ui-integration-tests/sensitive"
         env.SENSITIVE_REPOSITORY_SUBFOLDER = "sensitive"
         env.SENSITIVE_TESTDATA_DIR = "../sensitive"
-        env.SENSITIVE_BRANCH = "*/develop"
+        env.SENSITIVE_BRANCH = "*/master"
         env.TEST_PROJECT_DIR = "tests/common/xrd-ui-tests-qautomate"
         env.AGENT = "ui-test-node2"
     }
