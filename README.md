@@ -28,6 +28,7 @@ Guide for installing the harmonized test environment
 
 #### 1. Install Ubuntu16.04 or Lubuntu16.04
 * Get the latest Ubuntu 16.04 LTS image: http://releases.ubuntu.com/16.04/ or Lubuntu 16.04 LTS image: https://lubuntu.net/downloads/
+* **Note!** Virtualbox installation needs 10gb of ram, 30gb of hard disk space, 2 cores and 3d acceleration with 128 video memory
 * **Note!** Lubuntu might work better in slower environments
 * **Note!** Recommend install default admin user as "jenkins" 
 
