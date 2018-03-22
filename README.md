@@ -38,6 +38,7 @@ Guide for installing the harmonized test environment
 * Lubuntu 
 	* Remove lock from power management settings
 	* Install ibus and remove check from ibus advanced settings options.
+	* Check keyboard layout is set to use ibus
 
 #### 3. Give user "jenkins" sudoers access rights
 * Create jenkins user if it does not exist
