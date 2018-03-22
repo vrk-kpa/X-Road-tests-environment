@@ -13,7 +13,7 @@ This repository contains X-Road lxd harmonized test automation environment insta
     > Configuration files for the servers
 
 #### Jenkins files
-* [jenkins](jenkins)
+* [jenkins_config](jenkins_config)
     > Test environment jenkins configuration files
 * [pipelines](pipelines)
     > Jenkins pipelines used in LXD, stage and product
