@@ -13,7 +13,7 @@ This repository contains X-Road lxd harmonized test automation environment insta
     > Configuration files for the servers
 
 #### Jenkins files
-* [jenkins](jenkins)
+* [jenkins_config](jenkins_config)
     > Test environment jenkins configuration files
 * [pipelines](pipelines)
     > Jenkins pipelines used in LXD, stage and product
@@ -28,6 +28,7 @@ Guide for installing the harmonized test environment
 
 #### 1. Install Ubuntu16.04 or Lubuntu16.04
 * Get the latest Ubuntu 16.04 LTS image: http://releases.ubuntu.com/16.04/ or Lubuntu 16.04 LTS image: https://lubuntu.net/downloads/
+* **Note!** Virtualbox installation needs 10gb of ram, 30gb of hard disk space, 2 cores and 3d acceleration with 128 video memory
 * **Note!** Lubuntu might work better in slower environments
 * **Note!** Recommend install default admin user as "jenkins" 
 
@@ -38,6 +39,7 @@ Guide for installing the harmonized test environment
 * Lubuntu 
 	* Remove lock from power management settings
 	* Install ibus and remove check from ibus advanced settings options.
+	* Check keyboard layout is set to use ibus
 
 #### 3. Give user "jenkins" sudoers access rights
 * Create jenkins user if it does not exist
