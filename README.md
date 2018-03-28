@@ -140,7 +140,7 @@ Restart linux for changes to take effect
 #### 10 Run regression tests
 
 - Run regression or environment jobs from jenkins
-- Jobs descriptions can be found in [jenkins_config](jenkins_config) readme
+- Jobs descriptions can be found in jenkins_config [README](jenkins_config/jobs/README.md)
 
 ## Resetting X-Road servers
 
