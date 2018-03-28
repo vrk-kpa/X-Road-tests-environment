@@ -16,7 +16,7 @@ This folder contains jenkins job configurations
     > Qautomate ui regression tests for configuration case for member
 * [lxd-xrd-ui-regr-configure-ss-server-with-new-member2-add-to-existing-cs](lxd-xrd-ui-regr-configure-ss-server-with-new-member2-add-to-existing-cs)
     > Qautomate ui regression tests for configuration case for member 2
-* [elxd-xrd-ui-regr-cs-server-management](lxd-xrd-ui-regr-cs-server-management)
+* [lxd-xrd-ui-regr-cs-server-management](lxd-xrd-ui-regr-cs-server-management)
     > Qautomate ui regression tests for central server management
 * [lxd-xrd-ui-regr-deletion-of-objects](lxd-xrd-ui-regr-deletion-of-objects)
     > Qautomate ui regression tests for deletion of objects cases
