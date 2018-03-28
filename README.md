@@ -95,7 +95,6 @@ Accept LXD init with all default values
 	* Other libraries and modules
 
 * Run installation scripts
-    * Option 1 Using ansible scripts from command line:
     ```
     cd /home/jenkins/github/X-Road/ansible
     sudo ansible-playbook -i /home/jenkins/github/X-Road-tests-environment/ansible/hosts/xroad_hosts.txt xroad_init.yml
