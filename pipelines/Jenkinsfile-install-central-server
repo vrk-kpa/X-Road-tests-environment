@@ -73,6 +73,7 @@ scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $server_address:
 scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $server_address:/home/ca/CA/certs/ocsp.cert.pem $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
  """
                     } else {
+                        def server_address = params.SIGN_CERT_SERVER
                         sh """
 ls -la
 echo $WORKSPACE
