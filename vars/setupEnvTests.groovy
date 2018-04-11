@@ -2,7 +2,7 @@ def call(env_name){
 
     if (env_name == "lxd" ) {
         echo "LXD environment"
-        env.LXD_TEST_REPOSITORY = "https://github.com/vrk-kpa/vrk-kpa/X-Road-tests"
+        env.LXD_TEST_REPOSITORY = "https://github.com/vrk-kpa/X-Road-tests"
         env.LXD_TEST_REPOSITORY_HTTPS = "https://github.com/ria-ee/X-Road-tests.git"
         env.LXD_TEST_REPOSITORY_VRK = "https://github.com/vrk-kpa/X-Road-tests.git"
         env.LXD_TEST_BRANCH = "*/develop"
