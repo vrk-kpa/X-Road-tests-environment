@@ -60,30 +60,30 @@ pipeline {
                     } else {
                         checkout([$class: 'GitSCM', branches: [[name: "${sensitive_branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${sensitive_repository_subfolder}"]], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${credential_key}", url: "${sensitive_repository}"]]])
                     }
-                    if(params.USE_JENKINS_PARAMETERS == "TRUE" && "${test_environment_type}" != "lxd")  {
+                    if("${test_environment_type}" != "lxd")  {
                         def server_address = params.SIGN_CERT_SERVER
                         sh """
-ls -la
-echo $WORKSPACE
-sudo rm -f $WORKSPACE/$test_project_dir/data/ca.cert.pem
-sudo rm -f $WORKSPACE/$test_project_dir/data/tsa.cert.pem
-sudo rm -f $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $server_address:/home/ca/CA/certs/ca.cert.pem $WORKSPACE/$test_project_dir/data/ca.cert.pem
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $server_address:/home/ca/CA/certs/tsa.cert.pem $WORKSPACE/$test_project_dir/data/tsa.cert.pem
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $server_address:/home/ca/CA/certs/ocsp.cert.pem $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
- """
+                            ls -la
+                            echo $WORKSPACE
+                            sudo rm -f $WORKSPACE/$test_project_dir/data/ca.cert.pem
+                            sudo rm -f $WORKSPACE/$test_project_dir/data/tsa.cert.pem
+                            sudo rm -f $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
+                            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $server_address:/home/ca/CA/certs/ca.cert.pem $WORKSPACE/$test_project_dir/data/ca.cert.pem
+                            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $server_address:/home/ca/CA/certs/tsa.cert.pem $WORKSPACE/$test_project_dir/data/tsa.cert.pem
+                            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $server_address:/home/ca/CA/certs/ocsp.cert.pem $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
+                        """
                     } else {
                         def server_address = params.SIGN_CERT_SERVER
                         sh """
-ls -la
-echo $WORKSPACE
-sudo rm -f $WORKSPACE/$test_project_dir/data/ca.cert.pem
-sudo rm -f $WORKSPACE/$test_project_dir/data/tsa.cert.pem
-sudo rm -f $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $server_address:/home/ca/CA/certs/ca.cert.pem $WORKSPACE/$test_project_dir/data/ca.cert.pem
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $server_address:/home/ca/CA/certs/tsa.cert.pem $WORKSPACE/$test_project_dir/data/tsa.cert.pem
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $server_address:/home/ca/CA/certs/ocsp.cert.pem $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
- """
+                            ls -la
+                            echo $WORKSPACE
+                            sudo rm -f $WORKSPACE/$test_project_dir/data/ca.cert.pem
+                            sudo rm -f $WORKSPACE/$test_project_dir/data/tsa.cert.pem
+                            sudo rm -f $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
+                            cp -f $cert_copy_source_path/ca.cert.pem $WORKSPACE/$test_project_dir/data/ca.cert.pem
+                            cp -f $cert_copy_source_path/tsa.cert.pem $WORKSPACE/$test_project_dir/data/tsa.cert.pem
+                            cp -f $cert_copy_source_path/ocsp.cert.pem $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
+                        """
                     }
 
         py command: """
@@ -129,19 +129,19 @@ else:
         }
         stage ("Build") {
             steps {
-sh """
-vncserver :$DISPLAY_NUMBER -geometry 1920x1080 || true
-export DISPLAY=:$DISPLAY_NUMBER
-export PYTHONPATH=/home/jenkins/.local/lib/python2.7/site-packages/qautomate/
-export PATH=$PATH:/home/jenkins/.local/lib/python2.7/site-packages/qautomate/webframework/resources/
-ls -la
-env
-cd $test_project_dir
-ls -la
-echo $test_project_dir
-bash -l -c "qautorunner.py $execution_command -p $test_data_path -t 33 -b ff -s -v ogg -a $WORKSPACE/$test_project_dir/test_reports/error_logs.txt"
-cd $WORKSPACE
- """
+                sh """
+                    vncserver :$DISPLAY_NUMBER -geometry 1920x1080 || true
+                    export DISPLAY=:$DISPLAY_NUMBER
+                    export PYTHONPATH=/home/jenkins/.local/lib/python2.7/site-packages/qautomate/
+                    export PATH=$PATH:/home/jenkins/.local/lib/python2.7/site-packages/qautomate/webframework/resources/
+                    ls -la
+                    env
+                    cd $test_project_dir
+                    ls -la
+                    echo $test_project_dir
+                    bash -l -c "qautorunner.py $execution_command -p $test_data_path -t 33 -b ff -s -v ogg -a $WORKSPACE/$test_project_dir/test_reports/error_logs.txt"
+                    cd $WORKSPACE
+                """
             }
         }
         stage ("Post build actions") {
