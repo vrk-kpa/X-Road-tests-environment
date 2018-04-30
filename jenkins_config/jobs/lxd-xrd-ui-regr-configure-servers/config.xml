@@ -1,15 +1,16 @@
 <?xml version='1.1' encoding='UTF-8'?>
 <flow-definition plugin="workflow-job@2.17">
-  <actions/>
+  <actions>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@1.2.7"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@1.2.7">
+      <jobProperties/>
+      <triggers/>
+      <parameters/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
+  </actions>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.7.3">
-      <useBuildBlocker>false</useBuildBlocker>
-      <blockLevel>GLOBAL</blockLevel>
-      <scanQueueFor>DISABLED</scanQueueFor>
-      <blockingJobs></blockingJobs>
-    </hudson.plugins.buildblocker.BuildBlockerProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
@@ -24,28 +25,42 @@
           <defaultValue>develop</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
-        <hudson.model.ChoiceParameterDefinition>
-          <name>RESET_SERVERS</name>
+        <hudson.model.StringParameterDefinition>
+          <name>LIBRARY_REPOSITORY</name>
           <description></description>
-          <choices class="java.util.Arrays$ArrayList">
-            <a class="string-array">
-              <string>True</string>
-              <string>False</string>
-            </a>
-          </choices>
-        </hudson.model.ChoiceParameterDefinition>
+          <defaultValue>https://github.com/pekkaan/QAutorobotLibrary</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LIBRARY_BRANCH</name>
+          <description></description>
+          <defaultValue>master</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.7.3">
+      <useBuildBlocker>false</useBuildBlocker>
+      <blockLevel>GLOBAL</blockLevel>
+      <scanQueueFor>DISABLED</scanQueueFor>
+      <blockingJobs></blockingJobs>
+    </hudson.plugins.buildblocker.BuildBlockerProperty>
     <EnvInjectJobProperty plugin="envinject@2.1.5">
       <info>
-        <propertiesContent>TEST_REPOSITORY=https://github.com/vrk-kpa/X-Road-tests
-TEST_BRANCH=*/develop
-TEST_REPOSITORY_SUBFOLDER=tests
-TEST_PROJECT_DIR=$TEST_REPOSITORY_SUBFOLDER/common/xrd-ui-tests-qautomate
-QUIET_PERIOD=10
-AGENT=master
+        <propertiesContent>TEST_OR_PROFILE_NAME=xroad_install_ui_configuration.robot
+TEST_DATA=xroad_install_ui_configuration.xml
+TEMP_WS=$WORKSPACE
+TEST_PROJECT_DIR=tests/common/xrd-ui-tests-qautomate
 PIPELINE_BRANCH=master
-RESET_TYPE=Repository</propertiesContent>
+TEST_REPOSITORY_SUBFOLDER=tests
+LIBRARY_REPOSITORY_SUBFOLDER=QautoRobot
+DISPLAY_NUMBER=0
+
+
+
+
+
+</propertiesContent>
         <secureGroovyScript plugin="script-security@1.42">
           <script></script>
           <sandbox>false</sandbox>
@@ -57,9 +72,6 @@ RESET_TYPE=Repository</propertiesContent>
       <keepBuildVariables>true</keepBuildVariables>
       <overrideBuildParameters>false</overrideBuildParameters>
     </EnvInjectJobProperty>
-    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
-      <triggers/>
-    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.45">
     <scm class="hudson.plugins.git.GitSCM" plugin="git@3.8.0">
@@ -67,7 +79,6 @@ RESET_TYPE=Repository</propertiesContent>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
           <url>https://github.com/vrk-kpa/X-Road-tests-environment</url>
-          <credentialsId>b7a9b945-4430-4598-8d5d-ad6ed0941c5f</credentialsId>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
@@ -79,7 +90,7 @@ RESET_TYPE=Repository</propertiesContent>
       <submoduleCfg class="list"/>
       <extensions/>
     </scm>
-    <scriptPath>pipelines/Jenkinsfile-xrd-ui-regr-pipeline</scriptPath>
+    <scriptPath>pipelines/Jenkinsfile-generic-run-tests</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>
