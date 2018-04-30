@@ -9,6 +9,8 @@ def test_branch = collectParamsEnv("TEST_BRANCH")
 def test_repository_subfolder = collectParamsEnv("TEST_REPOSITORY_SUBFOLDER")
 def test_project_dir = collectParamsEnv("TEST_PROJECT_DIR")
 
+def server_address = collectParamsEnv("SIGN_CERT_SERVER")
+
 def test_data_path = "data/lxd_parameters/${TEST_DATA}"
 def cert_copy_source_path = "/home/jenkins/certs"
 
@@ -25,7 +27,6 @@ pipeline {
                 script {
                     checkout([$class: 'GitSCM', branches: [[name: "${test_branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${test_repository_subfolder}"]], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[url: "${test_repository}"]]])
                     checkout([$class: 'GitSCM', branches: [[name: "${library_branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${library_repository_subfolder}"]], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[url: "${library_repository}"]]])
-                    def server_address = params.SIGN_CERT_SERVER
                     sh """
                         ls -la
                         echo $WORKSPACE
