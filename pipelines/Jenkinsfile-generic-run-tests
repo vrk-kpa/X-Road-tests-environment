@@ -9,8 +9,6 @@ def test_branch = collectParamsEnv("TEST_BRANCH")
 def test_repository_subfolder = collectParamsEnv("TEST_REPOSITORY_SUBFOLDER")
 def test_project_dir = collectParamsEnv("TEST_PROJECT_DIR")
 
-def server_address = collectParamsEnv("SIGN_CERT_SERVER")
-
 def test_data_path = "data/lxd_parameters/${TEST_DATA}"
 def cert_copy_source_path = "/home/jenkins/certs"
 
@@ -33,9 +31,9 @@ pipeline {
                         sudo rm -f $WORKSPACE/$test_project_dir/data/ca.cert.pem
                         sudo rm -f $WORKSPACE/$test_project_dir/data/tsa.cert.pem
                         sudo rm -f $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
-                        scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $server_address:/home/ca/CA/certs/ca.cert.pem $WORKSPACE/$test_project_dir/data/ca.cert.pem
-                        scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $server_address:/home/ca/CA/certs/tsa.cert.pem $WORKSPACE/$test_project_dir/data/tsa.cert.pem
-                        scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $server_address:/home/ca/CA/certs/ocsp.cert.pem $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
+                        cp -f $cert_copy_source_path/ca.cert.pem $WORKSPACE/$test_project_dir/data/ca.cert.pem
+                        cp -f $cert_copy_source_path/tsa.cert.pem $WORKSPACE/$test_project_dir/data/tsa.cert.pem
+                        cp -f $cert_copy_source_path/ocsp.cert.pem $WORKSPACE/$test_project_dir/data/ocsp.cert.pemest_project_dir/data/ocsp.cert.pem
                     """
                 }
             }
