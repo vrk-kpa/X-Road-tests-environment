@@ -25,6 +25,7 @@ pipeline {
             steps {
                 script {
                     checkout([$class: 'GitSCM', branches: [[name: "${test_branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${test_repository_subfolder}"]], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[url: "${test_repository}"]]])
+                    checkout([$class: 'GitSCM', branches: [[name: "${library_branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${library_repository_subfolder}"]], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[url: "${library_repository}"]]])
                     sh """
                         ls -la
                         echo $WORKSPACE
