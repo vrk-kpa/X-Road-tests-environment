@@ -33,7 +33,7 @@ pipeline {
                         sudo rm -f $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
                         cp -f $cert_copy_source_path/ca.cert.pem $WORKSPACE/$test_project_dir/data/ca.cert.pem
                         cp -f $cert_copy_source_path/tsa.cert.pem $WORKSPACE/$test_project_dir/data/tsa.cert.pem
-                        cp -f $cert_copy_source_path/ocsp.cert.pem $WORKSPACE/$test_project_dir/data/ocsp.cert.pemest_project_dir/data/ocsp.cert.pem
+                        cp -f $cert_copy_source_path/ocsp.cert.pem $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
                     """
                 }
             }
