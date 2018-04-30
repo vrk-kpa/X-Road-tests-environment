@@ -8,9 +8,8 @@ def test_repository = collectParamsEnv("TEST_REPOSITORY")
 def test_branch = collectParamsEnv("TEST_BRANCH")
 def test_repository_subfolder = collectParamsEnv("TEST_REPOSITORY_SUBFOLDER")
 def test_project_dir = collectParamsEnv("TEST_PROJECT_DIR")
-def TA_ENV_PARAMETERS = "${test_environment_type}_parameters"
 
-def test_data_path = "data/${TA_ENV_PARAMETERS}/${TEST_DATA}"
+def test_data_path = "data/lxd_parameters/${TEST_DATA}"
 def cert_copy_source_path = "/home/jenkins/certs"
 
 pipeline {
