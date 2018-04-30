@@ -43,8 +43,7 @@ pipeline {
             	sh """
         			vncserver :$DISPLAY_NUMBER -geometry 1920x1080 || true
         			export DISPLAY=:$DISPLAY_NUMBER
-        			export PYTHONPATH=/home/jenkins/.local/lib/python2.7/site-packages/qautorobot/
-        			export PATH=$PATH:/home/jenkins/.local/lib/python2.7/site-packages/qautorobot/webframework/resources/
+        			export PYTHONPATH=$WORKSPACE/$library_repository_subfolder
         			ls -la
         			env
         			cd $test_project_dir
