@@ -44,6 +44,7 @@ pipeline {
         			vncserver :$DISPLAY_NUMBER -geometry 1920x1080 || true
         			export DISPLAY=:$DISPLAY_NUMBER
         			export PYTHONPATH=$WORKSPACE/$library_repository_subfolder
+        			export PATH=$PATH:/home/jenkins/webdrivers/geckodriver_linux64
         			ls -la
         			env
         			cd $test_project_dir
