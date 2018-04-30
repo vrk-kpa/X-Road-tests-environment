@@ -32,7 +32,7 @@ node {
                    sh """
                    export DISPLAY=:0
                    export PYTHONPATH=$temp_ws/$xroad_python_tests
-                   export PATH=$PATH:/home/jenkins/.local/lib/python2.7/site-packages/qautomate/webdrivers/geckodriver_linux64
+                   export PATH=$PATH:/home/jenkins/webdrivers/geckodriver_linux64
                    cd $python_path/tests/$execTestFolder
                    nose2 --plugin nose2.plugins.junitxml --junit-xml $execTestClass || true
                    mv nose2-junit.xml $execTestClass-junit.xml
