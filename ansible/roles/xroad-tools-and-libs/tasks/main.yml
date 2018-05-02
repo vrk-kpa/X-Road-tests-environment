@@ -64,6 +64,7 @@
     - nose2
     - cffi
     - cryptography
+    - robotframework
 
 - name: Copy install scripts to temp directory
   become: true
