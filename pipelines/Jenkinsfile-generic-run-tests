@@ -40,29 +40,28 @@ pipeline {
         }
         stage ("Build") {
             steps {
-                try {
-                    sh """
-                        vncserver :$DISPLAY_NUMBER -geometry 1920x1080 || true
-                        export DISPLAY=:$DISPLAY_NUMBER
-                        export PYTHONPATH=$WORKSPACE/$library_repository_subfolder
-                        export PATH=$PATH:/home/jenkins/webdrivers/geckodriver_linux64
-                        ls -la
-                        env
-                        cd $test_project_dir
-                        ls -la
-                        echo $test_project_dir
-                        bash -l -c "python -m robot.run -d test_reports --variable BROWSER:ff --variable "TESTDATA:$test_data_path" tests/${TEST_OR_PROFILE_NAME}"
-                        cd $WORKSPACE
-                    """
-                } catch (e) {
-                    echo "FAILED: ${TEST_OR_PROFILE_NAME}"
-                    currentBuild.result = "FAILURE"
-                }
+                sh """
+                    vncserver :$DISPLAY_NUMBER -geometry 1920x1080 || true
+                    export DISPLAY=:$DISPLAY_NUMBER
+                    export PYTHONPATH=$WORKSPACE/$library_repository_subfolder
+                    export PATH=$PATH:/home/jenkins/webdrivers/geckodriver_linux64
+                    ls -la
+                    env
+                    cd $test_project_dir
+                    ls -la
+                    echo $test_project_dir
+                    bash -l -c "python -m robot.run -d test_reports --variable BROWSER:ff --variable "TESTDATA:$test_data_path" tests/${TEST_OR_PROFILE_NAME}"
+                    cd $WORKSPACE
+                """
             }
         }
-        stage ("Post build actions") {
-            steps {
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '$test_project_dir/test_reports', reportFiles: 'log.html', reportName: 'HTML Report', reportTitles: ''])
+        post {
+            always {
+                stage ("Post build actions") {
+                    steps {
+                        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '$test_project_dir/test_reports', reportFiles: 'log.html', reportName: 'HTML Report', reportTitles: ''])
+                    }
+                }
             }
         }
     }
