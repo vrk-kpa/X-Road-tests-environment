@@ -38,6 +38,10 @@ node {
     }
 
     testJob("lxd-xrd-ui-regr-global-configuration", jobparams, quiet_period, currentBuild)
+    testJob("lxd-xrd-ui-regr-cs-server-management", jobparams, quiet_period, currentBuild)
+    testJob("lxd-xrd-ui-regr-ss-server-management", jobparams, quiet_period, currentBuild)
+    testJob("lxd-xrd-ui-regr-keys-and-certs", jobparams, quiet_period, currentBuild)
+    testJob("lxd-xrd-ui-regr-deletion-of-objects", jobparams, quiet_period, currentBuild)
 
     testJob("lxd-xrd-ui-regr-est-test-runner", jobparams, quiet_period, currentBuild)
 
