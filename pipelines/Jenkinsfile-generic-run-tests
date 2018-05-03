@@ -18,7 +18,6 @@ pipeline {
             label env.AGENT
     }
 
-
     stages {
         stage ("Checkout and Setup"){
             steps {
@@ -55,10 +54,11 @@ pipeline {
         		 """
             }
         }
-        stage ("Post build actions") {
-            steps {
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '$test_project_dir/test_reports', reportFiles: 'log.html', reportName: 'HTML Report', reportTitles: ''])
-            }
+    }
+
+    post {
+        always {
+            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '$test_project_dir/test_reports', reportFiles: 'log.html', reportName: 'HTML Report', reportTitles: ''])
         }
     }
 }
