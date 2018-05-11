@@ -37,6 +37,8 @@ node {
        build job: "lxd-xrd-ui-regr-configure-servers", quietPeriod: quiet_period, parameters: jobparams
     }
 
+    testJob("environment-job-lxd-make-backup", jobparams, quiet_period, currentBuild)
+
     testJob("lxd-xrd-ui-regr-global-configuration", jobparams, quiet_period, currentBuild)
     testJob("lxd-xrd-ui-regr-cs-server-management", jobparams, quiet_period, currentBuild)
     testJob("lxd-xrd-ui-regr-ss-server-management", jobparams, quiet_period, currentBuild)
@@ -44,5 +46,7 @@ node {
     testJob("lxd-xrd-ui-regr-deletion-of-objects", jobparams, quiet_period, currentBuild)
 
     testJob("lxd-xrd-ui-regr-est-test-runner", jobparams, quiet_period, currentBuild)
+
+    testJob("environment-job-lxd-restore-backup", jobparams, quiet_period, currentBuild)
 
 }
