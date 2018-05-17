@@ -46,7 +46,4 @@ node {
     testJob("lxd-xrd-ui-regr-deletion-of-objects", jobparams, quiet_period, currentBuild)
 
     testJob("lxd-xrd-ui-regr-est-test-runner", jobparams, quiet_period, currentBuild)
-
-    testJob("environment-job-lxd-restore-backup", jobparams, quiet_period, currentBuild)
-
 }
