@@ -9,7 +9,6 @@ def test_branch = collectParamsEnv("TEST_BRANCH")
 def test_repository_subfolder = collectParamsEnv("TEST_REPOSITORY_SUBFOLDER")
 def test_project_dir = collectParamsEnv("TEST_PROJECT_DIR")
 
-def test_data_path = "data/lxd_parameters/${TEST_DATA}"
 def cert_copy_source_path = "/home/jenkins/certs"
 
 pipeline {
@@ -27,12 +26,12 @@ pipeline {
                     sh """
                         ls -la
                         echo $WORKSPACE
-                        sudo rm -f $WORKSPACE/ca.cert.pem
-                        sudo rm -f $WORKSPACE/tsa.cert.pem
-                        sudo rm -f $WORKSPACE/ocsp.cert.pem
-                        cp -f $cert_copy_source_path/ca.cert.pem $WORKSPACE/ca.cert.pem
-                        cp -f $cert_copy_source_path/tsa.cert.pem $WORKSPACE/tsa.cert.pem
-                        cp -f $cert_copy_source_path/ocsp.cert.pem $WORKSPACE/ocsp.cert.pem
+                        sudo rm -f $WORKSPACE/$test_repository_subfolder/ca.cert.pem
+                        sudo rm -f $WORKSPACE/$test_repository_subfolder/tsa.cert.pem
+                        sudo rm -f $WORKSPACE/$test_repository_subfolder/ocsp.cert.pem
+                        cp -f $cert_copy_source_path/ca.cert.pem $WORKSPACE/$test_repository_subfolder/ca.cert.pem
+                        cp -f $cert_copy_source_path/tsa.cert.pem $WORKSPACE/$test_repository_subfolder/tsa.cert.pem
+                        cp -f $cert_copy_source_path/ocsp.cert.pem $WORKSPACE/$test_repository_subfolder/ocsp.cert.pem
                     """
                 }
             }
@@ -49,7 +48,7 @@ pipeline {
         			cd $test_project_dir
         			ls -la
         			echo $test_project_dir
-        			bash -l -c "python -m robot.run -d test_reports --variable BROWSER:ff --variable "TESTDATA:$test_data_path" ${TEST_OR_PROFILE_NAME}"
+        			bash -l -c "python -m robot.run -d test_reports --variable BROWSER:ff --variable "TESTDATA:${TEST_DATA}" ${TEST_OR_PROFILE_NAME}"
         			cd $WORKSPACE
         		 """
             }
