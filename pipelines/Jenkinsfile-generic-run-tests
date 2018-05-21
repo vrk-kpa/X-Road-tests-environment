@@ -27,12 +27,12 @@ pipeline {
                     sh """
                         ls -la
                         echo $WORKSPACE
-                        sudo rm -f $WORKSPACE/$test_project_dir/data/ca.cert.pem
-                        sudo rm -f $WORKSPACE/$test_project_dir/data/tsa.cert.pem
-                        sudo rm -f $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
-                        cp -f $cert_copy_source_path/ca.cert.pem $WORKSPACE/$test_project_dir/data/ca.cert.pem
-                        cp -f $cert_copy_source_path/tsa.cert.pem $WORKSPACE/$test_project_dir/data/tsa.cert.pem
-                        cp -f $cert_copy_source_path/ocsp.cert.pem $WORKSPACE/$test_project_dir/data/ocsp.cert.pem
+                        sudo rm -f $WORKSPACE/ca.cert.pem
+                        sudo rm -f $WORKSPACE/tsa.cert.pem
+                        sudo rm -f $WORKSPACE/ocsp.cert.pem
+                        cp -f $cert_copy_source_path/ca.cert.pem $WORKSPACE/ca.cert.pem
+                        cp -f $cert_copy_source_path/tsa.cert.pem $WORKSPACE/tsa.cert.pem
+                        cp -f $cert_copy_source_path/ocsp.cert.pem $WORKSPACE/ocsp.cert.pem
                     """
                 }
             }
@@ -49,7 +49,7 @@ pipeline {
         			cd $test_project_dir
         			ls -la
         			echo $test_project_dir
-        			bash -l -c "python -m robot.run -d test_reports --variable BROWSER:ff --variable "TESTDATA:$test_data_path" tests/${TEST_OR_PROFILE_NAME}"
+        			bash -l -c "python -m robot.run -d test_reports --variable BROWSER:ff --variable "TESTDATA:$test_data_path" ${TEST_OR_PROFILE_NAME}"
         			cd $WORKSPACE
         		 """
             }
