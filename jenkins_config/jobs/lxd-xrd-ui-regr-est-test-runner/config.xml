@@ -1,18 +1,74 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<flow-definition plugin="workflow-job@2.17">
-  <actions/>
+<flow-definition plugin="workflow-job@2.21">
+  <actions>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@1.2.9"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@1.2.9">
+      <jobProperties/>
+      <triggers/>
+      <parameters/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
+  </actions>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>TEST_REPOSITORY</name>
+          <description></description>
+          <defaultValue>https://github.com/vrk-kpa/X-Road-tests</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>TEST_BRANCH</name>
+          <description></description>
+          <defaultValue>develop</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LIBRARY_REPOSITORY</name>
+          <description></description>
+          <defaultValue>https://github.com/pekkaan/QAutorobotLibrary</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LIBRARY_BRANCH</name>
+          <description></description>
+          <defaultValue>master</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
     <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.7.3">
       <useBuildBlocker>false</useBuildBlocker>
       <blockLevel>GLOBAL</blockLevel>
       <scanQueueFor>DISABLED</scanQueueFor>
       <blockingJobs></blockingJobs>
     </hudson.plugins.buildblocker.BuildBlockerProperty>
+    <EnvInjectJobProperty plugin="envinject@2.1.5">
+      <info>
+        <propertiesContent>TEST_OR_PROFILE_NAME=robot_tests/all_cases.robot
+TEST_DATA=
+TEST_PROJECT_DIR=tests/common/xrd-ui-tests-python
+PIPELINE_BRANCH=master
+TEST_REPOSITORY_SUBFOLDER=tests
+LIBRARY_REPOSITORY_SUBFOLDER=QautoRobot
+DISPLAY_NUMBER=0
+</propertiesContent>
+        <secureGroovyScript plugin="script-security@1.44">
+          <script></script>
+          <sandbox>false</sandbox>
+        </secureGroovyScript>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <overrideBuildParameters>false</overrideBuildParameters>
+    </EnvInjectJobProperty>
   </properties>
-  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.45">
-    <scm class="hudson.plugins.git.GitSCM" plugin="git@3.8.0">
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.53">
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@3.9.0">
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
@@ -29,7 +85,7 @@
       <submoduleCfg class="list"/>
       <extensions/>
     </scm>
-    <scriptPath>pipelines/Jenkinsfile-xrd-est-ui-regr-test-runner</scriptPath>
+    <scriptPath>pipelines/Jenkinsfile-generic-run-tests</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>

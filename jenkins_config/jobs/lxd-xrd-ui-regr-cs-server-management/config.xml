@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<flow-definition plugin="workflow-job@2.20">
+<flow-definition plugin="workflow-job@2.21">
   <actions>
     <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@1.2.9"/>
     <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@1.2.9">
@@ -47,14 +47,15 @@
     </hudson.plugins.buildblocker.BuildBlockerProperty>
     <EnvInjectJobProperty plugin="envinject@2.1.5">
       <info>
-        <propertiesContent>TEST_OR_PROFILE_NAME=xroad_cs_server_management.robot
-TEST_DATA=xroad_cs_server_management.xml
-TEMP_WS=$WORKSPACE
+        <propertiesContent>TEST_OR_PROFILE_NAME=tests/xroad_cs_server_management.robot
+TEST_DATA=data/lxd_parameters/xroad_cs_server_management.xml
 TEST_PROJECT_DIR=tests/common/xrd-ui-tests-qautomate
 PIPELINE_BRANCH=master
 TEST_REPOSITORY_SUBFOLDER=tests
 LIBRARY_REPOSITORY_SUBFOLDER=QautoRobot
 DISPLAY_NUMBER=0
+
+
 </propertiesContent>
         <secureGroovyScript plugin="script-security@1.44">
           <script></script>
@@ -68,8 +69,8 @@ DISPLAY_NUMBER=0
       <overrideBuildParameters>false</overrideBuildParameters>
     </EnvInjectJobProperty>
   </properties>
-  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.49">
-    <scm class="hudson.plugins.git.GitSCM" plugin="git@3.8.0">
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.53">
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@3.9.0">
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
