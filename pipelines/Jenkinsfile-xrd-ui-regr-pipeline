@@ -22,7 +22,6 @@ node {
     jobparams += [string(name: "TEST_REPOSITORY", value: env.TEST_REPOSITORY)]
     jobparams += [string(name: "SENSITIVE_BRANCH", value: env.SENSITIVE_BRANCH)]
     jobparams += [string(name: "TEST_REPOSITORY_SUBFOLDER", value: env.TEST_REPOSITORY_SUBFOLDER)]
-    jobparams += [string(name: "TEST_PROJECT_DIR", value: env.TEST_PROJECT_DIR)]
     jobparams += [string(name: "AGENT", value: env.AGENT)]
     echo("Node parameters list: '${jobparams}'")
 
