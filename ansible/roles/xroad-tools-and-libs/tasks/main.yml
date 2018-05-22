@@ -114,7 +114,7 @@
 
 - name: Install specific jenkins version
   apt:
-    name: "jenkins={{jenkins_version}}"
+    name: "jenkins"
     force: yes
 
 - name: Sleep for 25 seconds and Wait jenkins starting
