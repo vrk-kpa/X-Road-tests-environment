@@ -24,6 +24,18 @@
           <defaultValue>develop</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LIBRARY_REPOSITORY</name>
+          <description></description>
+          <defaultValue>https://github.com/pekkaan/QAutorobotLibrary</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LIBRARY_BRANCH</name>
+          <description></description>
+          <defaultValue>master</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
         <hudson.model.ChoiceParameterDefinition>
           <name>RESET_SERVERS</name>
           <description></description>
@@ -38,12 +50,10 @@
     </hudson.model.ParametersDefinitionProperty>
     <EnvInjectJobProperty plugin="envinject@2.1.5">
       <info>
-        <propertiesContent>TEST_REPOSITORY=https://github.com/vrk-kpa/X-Road-tests
-TEST_BRANCH=*/develop
-TEST_REPOSITORY_SUBFOLDER=tests
+        <propertiesContent>TEST_REPOSITORY_SUBFOLDER=tests
+PIPELINE_BRANCH=master
 QUIET_PERIOD=10
 AGENT=master
-PIPELINE_BRANCH=master
 RESET_TYPE=Repository</propertiesContent>
         <secureGroovyScript plugin="script-security@1.44">
           <script></script>

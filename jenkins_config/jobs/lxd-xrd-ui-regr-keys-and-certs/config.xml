@@ -34,7 +34,7 @@
         <hudson.model.StringParameterDefinition>
           <name>LIBRARY_BRANCH</name>
           <description></description>
-          <defaultValue>master</defaultValue>
+          <defaultValue>PVAYLADEV-1134</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
@@ -50,7 +50,7 @@
         <propertiesContent>TEST_OR_PROFILE_NAME=tests/xroad_keys_and_certs.robot
 TEST_DATA=data/lxd_parameters/xroad_keys_and_certs.xml
 TEST_PROJECT_DIR=tests/common/xrd-ui-tests-qautomate
-PIPELINE_BRANCH=master
+PIPELINE_BRANCH=PVAYLADEV-1134
 TEST_REPOSITORY_SUBFOLDER=tests
 LIBRARY_REPOSITORY_SUBFOLDER=QautoRobot
 DISPLAY_NUMBER=0</propertiesContent>
