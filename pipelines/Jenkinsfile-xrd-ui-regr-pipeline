@@ -10,17 +10,9 @@ node {
     }
 
     echo("Node parameters list: '${jobparams}'")
-    def test_environment_type = env.ENV_TYPE
-    def test_environment_type_upp = env.ENV_TYPE.toUpperCase()
     def quiet_period = env.QUIET_PERIOD.toInteger()
 
-
-    jobparams += [string(name: "SENSITIVE_REPOSITORY", value: env.SENSITIVE_REPOSITORY)]
-    jobparams += [string(name: "SENSITIVE_REPOSITORY_SUBFOLDER", value: env.SENSITIVE_REPOSITORY_SUBFOLDER)]
-    jobparams += [string(name: "SENSITIVE_TESTDATA_DIR", value: env.SENSITIVE_TESTDATA_DIR)]
-    jobparams += [string(name: "SENSITIVE_DATA_DIR", value: env.SENSITIVE_DATA_DIR)]
     jobparams += [string(name: "TEST_REPOSITORY", value: env.TEST_REPOSITORY)]
-    jobparams += [string(name: "SENSITIVE_BRANCH", value: env.SENSITIVE_BRANCH)]
     jobparams += [string(name: "TEST_REPOSITORY_SUBFOLDER", value: env.TEST_REPOSITORY_SUBFOLDER)]
     jobparams += [string(name: "AGENT", value: env.AGENT)]
     echo("Node parameters list: '${jobparams}'")
