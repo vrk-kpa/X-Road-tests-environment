@@ -21,7 +21,7 @@
         <hudson.model.StringParameterDefinition>
           <name>TEST_BRANCH</name>
           <description></description>
-          <defaultValue>develop</defaultValue>
+          <defaultValue>PVAYLADEV-1134</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
@@ -51,7 +51,7 @@
     <EnvInjectJobProperty plugin="envinject@2.1.5">
       <info>
         <propertiesContent>TEST_REPOSITORY_SUBFOLDER=tests
-PIPELINE_BRANCH=master
+PIPELINE_BRANCH=PVAYLADEV-1134
 QUIET_PERIOD=10
 AGENT=master
 RESET_TYPE=Repository</propertiesContent>

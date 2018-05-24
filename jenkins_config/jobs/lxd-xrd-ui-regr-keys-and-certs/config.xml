@@ -22,7 +22,7 @@
         <hudson.model.StringParameterDefinition>
           <name>TEST_BRANCH</name>
           <description></description>
-          <defaultValue>develop</defaultValue>
+          <defaultValue>PVAYLADEV-1134</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
@@ -34,7 +34,7 @@
         <hudson.model.StringParameterDefinition>
           <name>LIBRARY_BRANCH</name>
           <description></description>
-          <defaultValue>PVAYLADEV-1134</defaultValue>
+          <defaultValue>master</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
