@@ -1,3 +1,9 @@
+## Unmaintained Repository
+
+Unmaintained repository. Development moved to: https://github.com/nordic-institute/X-Road-tests-environment
+
+X-Road-tests-environment is now actively developed by the Nordic Institute for Interoperability Solutions (NIIS) The original X-Road-tests-environment codebase here will be kept for archive purposes.
+
 ## About the repository
 
 This repository contains X-Road lxd harmonized test automation environment installations used in conjunction with [X-Road](https://github.com/vrk-kpa/X-Road).
